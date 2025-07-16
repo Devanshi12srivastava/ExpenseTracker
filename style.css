@@ -1,0 +1,48 @@
+.show-cont{
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.income-cont{
+    height:120px;
+    width:450px;
+    background: #c8cdecff ;
+    margin-left:20px;
+    padding-top:20px;
+    box-shadow:2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.expense-cont{
+    height:120px;
+    width:450px;
+    background: #c8cdecff ;
+    margin-left:20px;
+    padding-top:20px;
+    box-shadow:2px 2px 2px 2px rgba(0, 0, 0, 0.2);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.income-cont:hover{
+      transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.expense-cont:hover{
+      transform: translateY(-8px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+}
+.grouphover:hover .hovercard{
+    display:block! important;
+}
+     /* opacity: 1 !important;
+    pointer-events: auto;
+    transform: translateY(0);
+
+}
+  .hovercard {
+    transform: translateY(10px);
+  } */
+   
