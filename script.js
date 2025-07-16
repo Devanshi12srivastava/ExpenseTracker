@@ -10,6 +10,8 @@ let tablelist=document.querySelector(".tlist");
 let editButton=document.querySelector(".editbtn");
 const categoryEl = document.querySelector(".category-select2");
 const categoryEl2=document.querySelector(".category-select");
+const resetBtn=document.querySelector(".reset");
+const restoreBtn = document.querySelector(".restore");
 
 let transaction=[];
 
@@ -301,6 +303,31 @@ console.log(totalBalance);
   }
 
 calculateTransaction();
+
+resetBtn.addEventListener("click", function(){
+  
+  //  localStorage.removeItem('transaction');
+  tablelist.innerHTML="";
+  Income.innerHTML="0";
+  Expense.innerHTML="0";
+  balance.innerHTML="0";
+  console.log("click");
+  
+  
+});
+
+restoreBtn.onclick = () => {
+  const data = JSON.parse(localStorage.getItem("transaction")) || [];
+  if (data.length === 0) {
+    alert("No transactions found in storage");
+  } else {
+    showtransaction(data);
+  }
+};
+window.onload = () => {
+  tablelist.innerHTML = "<tr><td colspan='7' class='text-center'>Click 'Restore' to view your saved transactions</td></tr>";
+};
+
 
 
 
