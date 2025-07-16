@@ -9,6 +9,7 @@ let Income=document.querySelector(".income");
 let tablelist=document.querySelector(".tlist");
 let editButton=document.querySelector(".editbtn");
 const categoryEl = document.querySelector(".category-select2");
+const categoryEl2=document.querySelector(".category-select");
 
 let transaction=[];
 
@@ -215,8 +216,9 @@ tarik.addEventListener("click",function filterDate(){
   const allTransaction= JSON.parse(localStorage.getItem("transaction")) || [];
   const dateFilter = allTransaction.filter(item=>{
     const transDate=new Date(item.date).toISOString().split('T')[0];
-    
+    console.log(transDate);
     return transDate === selectedDate;
+    
     
     })
    if (dateFilter.length === 0) {
@@ -226,11 +228,34 @@ tarik.addEventListener("click",function filterDate(){
 }
 )
 
+//category wise filter
+categoryEl2.addEventListener("change",function category(){
+const chooseCategory = categoryEl2.value;
+  const Transaction2 =JSON.parse(localStorage.getItem("transaction")) || [];
+
+   if (!chooseCategory) {
+    showtransaction(Transaction2); // agar kuch select nahi kiya to sab dikhaye
+    return;
+  }
+  const selectcategory = Transaction2.filter(item=> item.category === chooseCategory);
+console.log(selectcategory);
+  if(selectcategory.length==0){
+    alert("no transaction found");
+  }
+     showtransaction(selectcategory);
+  });
+
+
+
+
+
+
+
 
 // show the transaction
-const showtransaction=()=>{
+const showtransaction=(data = transaction)=>{
     tablelist.innerHTML="";
-    transaction.forEach((item,index)=>{
+    data.forEach((item,index)=>{
        
 tablelist.innerHTML+=`<tr>
                   <td>${item.title}</td>
@@ -239,8 +264,6 @@ tablelist.innerHTML+=`<tr>
                    <td>${item.transaction}</td>
                   <td>${formateDate(item.date)}</td>
                   <td>${item.time}</td>
-                 
-                
                   <td>
                  <button title=${item.title} category=${item.category} amount=${item.amount} transaction=${item.transaction} class=" btn-edit btn btn-outline-success btn-sm me-2"><i class="fa-solid fa-pen "></i></button>
                 <button class=" btn-del btn btn-outline-danger btn-sm"><i class="fa-solid fa-trash"></i> </button>
