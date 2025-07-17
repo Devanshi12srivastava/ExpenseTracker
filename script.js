@@ -149,10 +149,12 @@ updateBtn.forEach((btn, index) => {
         let title = btn.getAttribute("title");
         let amount = btn.getAttribute("amount");
         let trans = btn.getAttribute("transaction");
+        let category1 = btn.getAttribute("category");
 
         selectEl.value = trans;
         allInput[0].value = title;
         allInput[1].value = amount;
+       categoryEl.value = category1;
 
         btnEl[0].classList.add("d-none");
         btnEl[1].classList.remove("d-none");
@@ -163,6 +165,7 @@ updateBtn.forEach((btn, index) => {
                 title: allInput[0].value,
                 amount: allInput[1].value,
                 transaction: selectEl.value,
+                   category: categoryEl.value,
                 date: now,
                 time: now.toLocaleTimeString('en-us', {
                     hour: 'numeric',
@@ -170,7 +173,18 @@ updateBtn.forEach((btn, index) => {
                     hour12: true
                 })
             };
+   const currentbalance = getCurrentBalance();
 
+    if (obj.transaction === "dr" && obj.amount > currentbalance) {
+        Swal.fire("⚠️ Not enough balance", "This expense exceeds your balance.", "warning");
+        
+        const modalElement = document.getElementById('myModel');
+        const modalInstance = bootstrap.Modal.getInstance(modalElement);
+        if (modalInstance) modalInstance.hide();
+
+        tForm.reset();
+        return;
+    }
             transaction[index]=obj;
             console.log(transaction);
             localStorage.setItem('transaction', JSON.stringify(transaction));
@@ -307,28 +321,44 @@ console.log(totalBalance);
 calculateTransaction();
 
 resetBtn.addEventListener("click", function(){
-  
-  //  localStorage.removeItem('transaction');
-  tablelist.innerHTML="";
+  const oldData = localStorage.getItem("transaction");
+  if (oldData) {
+    localStorage.setItem("transaction_backup", oldData); // 🗃️ backup save
+  }
+
+  localStorage.removeItem("transaction"); // ❌ delete main data
+  transaction = [];
+
+  tablelist.innerHTML="<h4>No data yet! </h4>";
   Income.innerHTML="0";
   Expense.innerHTML="0";
   balance.innerHTML="0";
-  console.log("click");
+ 
+
+  if (window.myChart) {
+    window.myChart.destroy();
+    window.myChart = null;
+  }
+});
   
   
+
+restoreBtn.addEventListener("click", () => {
+  const backup = localStorage.getItem("transaction_backup");
+  if (backup) {
+    localStorage.setItem("transaction", backup); // 🔁 restore original
+    transaction = JSON.parse(backup);
+    showtransaction();
+    calculateTransaction();
+    renderMonthlyChart();
+
+    Swal.fire("✔️ Restored!", "Your previous transactions are back!", "success");
+  } else {
+    Swal.fire("⚠️ No Backup Found", "There's nothing to restore.", "warning");
+  }
 });
 
-restoreBtn.onclick = () => {
-  const data = JSON.parse(localStorage.getItem("transaction")) || [];
-  if (data.length === 0) {
-    alert("No transactions found in storage");
-  } else {
-    showtransaction(data);
-  }
-};
-window.onload = () => {
-  tablelist.innerHTML = "<tr><td colspan='7' class='text-center'>Click 'Restore' to view your saved transactions</td></tr>";
-};
+
 
 function getMonthlySummary() {
   const transactionData = JSON.parse(localStorage.getItem("transaction")) || [];
