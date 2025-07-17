@@ -70,6 +70,7 @@ else{
     localStorage.setItem('transaction',JSON.stringify(transaction));
 Swal.fire("Success!", "Transaction added!", "success");
     btnClose.click();
+     renderMonthlyChart();    
     tForm.reset(); 
     showtransaction();
     calculateTransaction();
@@ -134,6 +135,7 @@ const deleteTrans = () => {
       });
     };
   });
+  renderMonthlyChart();
 };
 
 
@@ -161,8 +163,6 @@ updateBtn.forEach((btn, index) => {
                 title: allInput[0].value,
                 amount: allInput[1].value,
                 transaction: selectEl.value,
-                category:categoryEl.value,
-                
                 date: now,
                 time: now.toLocaleTimeString('en-us', {
                     hour: 'numeric',
@@ -177,12 +177,11 @@ updateBtn.forEach((btn, index) => {
             
             Swal.fire("Success!", "Transaction Updated!", "success");
             btnClose.click();
-          
+            tForm.reset();
             showtransaction();
             calculateTransaction(); 
             btnEl[0].classList.remove("d-none");
         btnEl[1].classList.add("d-none");
-          tForm.reset(); 
         };
     };
 });
@@ -226,8 +225,9 @@ tarik.addEventListener("click",function filterDate(){
    if (dateFilter.length === 0) {
   alert("No transactions found on this date.");
 } 
-  showtransaction(dateFilter); 
+  showtransaction(dateFilter);
 }
+ 
 )
 
 //category wise filter
@@ -276,6 +276,8 @@ tablelist.innerHTML+=`<tr>
     updateTrans();
 }
 showtransaction();
+renderMonthlyChart();
+
 
 // calculation
 
@@ -328,6 +330,103 @@ window.onload = () => {
   tablelist.innerHTML = "<tr><td colspan='7' class='text-center'>Click 'Restore' to view your saved transactions</td></tr>";
 };
 
+function getMonthlySummary() {
+  const transactionData = JSON.parse(localStorage.getItem("transaction")) || [];
+
+  const summary = {}; // { '2025-07': { cr: 0, dr: 0 }, ... }
+
+  transactionData.forEach(item => {
+    const date = new Date(item.date);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+    if (!summary[monthKey]) {
+      summary[monthKey] = { cr: 0, dr: 0 };
+    }
+
+    if (item.transaction === "cr") {
+      summary[monthKey].cr += parseFloat(item.amount);
+    } else {
+      summary[monthKey].dr += parseFloat(item.amount);
+    }
+  });
+
+  return summary;
+}
+function getMonthlySummary() {
+  const transactionData = JSON.parse(localStorage.getItem("transaction")) || [];
+
+  const summary = {};
+
+  transactionData.forEach(item => {
+    const date = new Date(item.date);
+    const monthKey = `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, '0')}`;
+
+    if (!summary[monthKey]) {
+      summary[monthKey] = { cr: 0, dr: 0 };
+    }
+
+    if (item.transaction === "cr") {
+      summary[monthKey].cr += parseFloat(item.amount);
+    } else {
+      summary[monthKey].dr += parseFloat(item.amount);
+    }
+  });
+
+  return summary;
+}
+
+function renderMonthlyChart() {
+  const summary = getMonthlySummary();
+  const labels = Object.keys(summary).sort();  // optional: sort months
+  const incomeData = labels.map(month => summary[month].cr);
+  const expenseData = labels.map(month => summary[month].dr);
+
+  const ctx = document.getElementById('monthlyChart').getContext('2d');
+
+  // ✅ Destroy old chart instance if it exists
+  if (window.myChart) {
+    window.myChart.destroy();
+  }
+
+  // ✅ Create new chart and assign to global
+  window.myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: labels,
+      datasets: [
+        {
+          label: 'Income',
+          backgroundColor: '#28a745',
+          data: incomeData
+        },
+        {
+          label: 'Expense',
+          backgroundColor: '#dc3545',
+          data: expenseData
+        }
+      ]
+    },
+    options: {
+      responsive: true,
+      plugins: {
+        legend: {
+          position: 'top',
+        },
+        title: {
+          display: false
+        }
+      },
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+      }
+    }
+  });
+}
 
 
-
+// if (window.myChart) {
+//   window.myChart.destroy();
+// }
+// renderMonthlyChart();

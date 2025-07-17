@@ -6,6 +6,7 @@
     <title>Expense Traker</title>
     <!-- Latest Font Awesome CDN (v6) -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
 </head>
 	
@@ -43,6 +44,10 @@
     </div>
   </div>
 </div>
+       <div class="my-5 p-4 bg-white rounded shadow">
+  <h4 class="text-center mb-3">Monthly Report</h4>
+  <canvas id="monthlyChart" height="40"></canvas>
+</div>
 
    <hr> 
    <select class="form-select category-select w-25">
@@ -55,6 +60,8 @@
   <option value="others">others😊</option>
 
    </select>
+  
+
    <div class="show"><button class="btn btn-primary" onclick="showtransaction()">show all transaction</button></div>
             <div class="d-flex flex-column justify-content-center align-items-center text-center w-100" >
               <div class="row g-2 mb-4">
@@ -105,6 +112,7 @@
     <button class="  btn btn-primary w-25 mb-4 restore">Restore</button>
   </div>
         </div>
+     
  <div class="position-fixed bottom-0 end-0 m-4" style="z-index: 999;">
   <div class="position-relative grouphover">
 
@@ -165,7 +173,10 @@
                 </div>
             </div>
         </div>
+    
+
     </div>
+    
 <script src="script.js"></script>
 </body>
 </html>
