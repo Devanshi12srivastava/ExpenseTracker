@@ -21,22 +21,20 @@
   />
 <link rel="stylesheet" href="style.css">
 
+<body style="background: #e7eaf6;">
 
-
-<body style="background: #a2a8d3;">
-
-    <div style="background:#e7eaf6" class="container h-100 mb-5">
+    <div style="background:#e7eaf6; max-width:100%" class="container">
         <h1 class="text-center mt-5 text-primary">Expense Tracker</h1>
         <h2 style="color:#27296d;" class="text-center mt-5">Your Balance</h2>
         <h3 class="text-center text-success balance f-8">Rs.50000</h3>
         <hr>
-     <div class="d-flex flex-column justify-content-center align-items-center">
-  <div class="row w-100 text-center show-cont">
-    <!-- Income Column -->
-    <div class="col-md-6 mb-2 income-cont">
-      <h2 class="fs-8 text-success">Income</h2>
+       <div class="d-flex flex-column justify-content-center align-items-center">
+       <div class="row w-100 text-center show-cont">
+       <!-- Income Column -->
+       <div class="col-md-6 mb-2 income-cont">
+       <h2 class="fs-8 text-success">Income</h2>
       <h2 class="text-success fs-8 income">Rs.55000</h2>
-    </div>
+     </div> 
 
     <!-- Expense Column -->
     <div class="col-md-6 mb-2 expense-cont">
@@ -45,10 +43,14 @@
     </div>
   </div>
 </div>
+
+
+
        <div class="my-5 p-4 bg-white rounded shadow">
   <h4 class="text-center mb-3">Monthly Report</h4>
-  <canvas id="monthlyChart" height="40"></canvas>
+  <canvas style= "max-width: 100%;" id="monthlyChart"  height="70"></canvas>
 </div>
+
 
    <hr> 
    <select class="form-select category-select w-25">
@@ -63,7 +65,7 @@
    </select>
   
 
-   <div class="show"><button class="btn btn-primary" onclick="showtransaction()">show all transaction</button></div>
+   <div class="show"><button class="btn btn-primary mt-4 mx-4" onclick="showtransaction()">show all transaction</button></div>
             <div class="d-flex flex-column justify-content-center align-items-center text-center w-100" >
               <div class="row g-2 mb-4">
   <div class="col-md-6">

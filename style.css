@@ -1,3 +1,9 @@
+.container{
+    height:auto;
+    /* weight:150vh; */
+}
+
+
 .show-cont{
     display:flex;
     justify-content:space-evenly;

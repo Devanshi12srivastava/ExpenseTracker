@@ -221,28 +221,34 @@ addBtn.addEventListener("click", () => {
 
 //date
 
-const tarik=document.querySelector(".filter");
-tarik.addEventListener("click",function filterDate(){
-  const selectedDate=document.getElementById("filter-date").value;
-  if(!selectedDate){
-    alert("please Enter a Date ☹️");
+const tarik = document.querySelector(".filter");
+
+tarik.addEventListener("click", function filterDate() {
+  const selectedDate = document.getElementById("filter-date").value;
+
+  if (!selectedDate) {
+    alert("Please enter a date ☹️");
     return;
   }
-  const allTransaction= JSON.parse(localStorage.getItem("transaction")) || [];
-  const dateFilter = allTransaction.filter(item=>{
-    const transDate=new Date(item.date).toISOString().split('T')[0];
-    console.log(transDate);
+
+  const allTransaction = JSON.parse(localStorage.getItem("transaction")) || [];
+
+  const dateFilter = allTransaction.filter(item => {
+  const transDate = new Date(item.date).toLocaleDateString('en-CA');
     return transDate === selectedDate;
-    
-    
-    })
-   if (dateFilter.length === 0) {
-  alert("No transactions found on this date.");
-} 
-  showtransaction(dateFilter);
-}
- 
-)
+  });
+
+  if (dateFilter.length === 0) {
+    alert("No transactions found on this date.");
+  }
+
+  if (typeof showtransaction === "function") {
+    showtransaction(dateFilter);
+  } else {
+    console.error("⚠️ showtransaction function is not defined.");
+  }
+});
+
 
 //category wise filter
 categoryEl2.addEventListener("change",function category(){
@@ -260,12 +266,6 @@ console.log(selectcategory);
   }
      showtransaction(selectcategory);
   });
-
-
-
-
-
-
 
 
 // show the transaction
@@ -456,7 +456,3 @@ function renderMonthlyChart() {
 }
 
 
-// if (window.myChart) {
-//   window.myChart.destroy();
-// }
-// renderMonthlyChart();
