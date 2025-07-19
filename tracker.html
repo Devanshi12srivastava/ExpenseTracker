@@ -24,9 +24,10 @@
 <body style="background: #e7eaf6;">
 
     <div style="background:#e7eaf6; max-width:100%" class="container">
-        <h1 class="text-center mt-5 text-primary">Expense Tracker</h1>
-        <h2 style="color:#27296d;" class="text-center mt-5">Your Balance</h2>
-        <h3 class="text-center text-success balance f-8">Rs.50000</h3>
+        <h1 style="font-size:45px;color: #01005e;" class="text-center mt-4">Expense Tracker</h1>
+        <h5 style="color:#22267b;" class="text-center my-4">"Welcome to Expense Tracker! Track every rupee,grow every day😊"</h5>
+        <h2 style="color:#27296d; font-size:39px" class="text-center mt-5">Your Balance</h2>
+        <h2 class="text-center text-success balance f-6 mb-4"> ₹50000</h2>
         <hr>
        <div class="d-flex flex-column justify-content-center align-items-center">
        <div class="row w-100 text-center show-cont">
@@ -44,13 +45,10 @@
   </div>
 </div>
 
-
-
-       <!-- <div class="my-5 p-4 bg-white rounded shadow">
+ <!-- <div class="my-5 p-4 bg-white rounded shadow">
   <h4 class="text-center mb-3">Monthly Report</h4>
   <canvas style= "max-width: 100%;" id="monthlyChart"  height="70"></canvas>
 </div> -->
-
 
    <hr> 
    <div class="container">
@@ -70,28 +68,28 @@
 </div>
 
   
-
   <div class="container">
   <div class="row">
     <div class="col-12 ">
-      <button class="btn btn-primary mt-2 px-2" onclick="showtransaction()">Show All Transactions</button>
+      <button class="btn btn-primary px-2" onclick="showtransaction()">Show All Transactions</button>
     </div>
   </div>
 </div>
 
             <div class="d-flex flex-column justify-content-center align-items-center text-center w-100" >
-              <div class="row g-2 mb-4">
-  <div class="col-md-6 mt-5">
+   <div class="row g-2 mb-4 mt-3">
+  <div class="col-12 col-md-6">
     <input type="date" id="filter-date" class="form-control">
   </div>
-  <div class="col-md-6 d-flex align-items-end">
-    <button class=" filter btn btn-primary w-100">Filter</button>
+  <div class="col-12 col-md-6 d-flex align-items-end">
+    <button class="filter btn btn-primary w-100">Filter</button>
   </div>
 </div>
+
                
-                <h2 class="text-success fs-4 mb-4 mt-5">Add new Transaction</h2>
+                <h2 style ="color:#0c005a"class=" f-8 mb-4 mt-5">Add new Transaction</h2>
                 <div class=" table-responsive d-flex justify-content-between table">
-                    <table class="text-center table table-striped align-middle text-center table table-bordered ">
+                    <table class="text-center table table-striped align-middle text-center table table-bordered">
                         <thead class="table-light" >
                             <tr>
                             <th style="padding: 20px 65px;" class="text-nowrap">Title</th>
@@ -150,7 +148,7 @@
 </div>
    
        <div class="my-5 p-4 bg-white rounded shadow">
-  <h4 class="text-center mb-3">Monthly Report</h4>
+  <h4 class="text-center mb-3 text-primary">Monthly Report</h4>
   <canvas style= "max-width: 100%;" id="monthlyChart"  height="70"></canvas>
 </div>
 
@@ -168,10 +166,10 @@
                     <form class="tform">
                     
                                     <select class="form-select mb-3">
-                            <option value="transaction" hidden>Transaction</option>
+                            <option value="" hidden>Transaction</option>
                            
-                            <option value="cr">CR</option>
-                            <option value="dr">DR</option>
+                            <option value="cr">CR(credit)</option>
+                            <option value="dr">DR(debit)</option>
                            
                         </select>
                                <select class="form-select category-select2 w-100 mb-3">

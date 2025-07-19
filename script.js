@@ -276,7 +276,7 @@ const showtransaction=(data = transaction)=>{
 tablelist.innerHTML+=`<tr>
                   <td>${item.title}</td>
                    <td>${item.category}</td>
-                   <td>${item.amount}</td>
+                   <td>${"₹"+item.amount}</td>
                    <td>${item.transaction}</td>
                   <td>${formateDate(item.date)}</td>
                   <td>${item.time}</td>
@@ -310,11 +310,11 @@ for(let obj of filterDebit){
     totaldr += Number(obj.amount);
 }
 console.log(totaldr);
-Income.innerText=totalcr;
-Expense.innerText=totaldr;
+Income.innerText= "₹"+totalcr;
+Expense.innerText="₹"+totaldr;
 const totalBalance=totalcr-totaldr;
 console.log(totalBalance);  
-  balance.innerText = totalBalance;
+  balance.innerText = "₹"+totalBalance;
   
   }
 
