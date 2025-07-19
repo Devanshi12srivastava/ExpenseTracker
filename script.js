@@ -329,7 +329,10 @@ resetBtn.addEventListener("click", function(){
   localStorage.removeItem("transaction"); // ❌ delete main data
   transaction = [];
 
-  tablelist.innerHTML="<h4>No data yet! </h4>";
+  tablelist.innerHTML=`<div class="text-center p-4 bg-light rounded shadow-sm">
+    <h5 class="text-muted">No data yet!</h5>
+    <p class="text-secondary">Start by adding your first transaction.</p>
+  </div>`;
   Income.innerHTML="0";
   Expense.innerHTML="0";
   balance.innerHTML="0";
